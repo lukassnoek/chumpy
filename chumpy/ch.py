@@ -17,7 +17,7 @@ import numbers
 import weakref
 import copy as external_copy
 from functools import wraps
-from scipy.sparse.linalg.interface import LinearOperator
+from scipy.sparse.linalg import LinearOperator
 from .utils import row, col, timer, convert_inputs_to_sparse_if_necessary
 import collections
 from copy import deepcopy
@@ -1200,7 +1200,7 @@ def depends_on(*dependencies):
             [deps.add(d) for d in dep]
     
     def _depends_on(func):
-        want_out = 'out' in inspect.getargspec(func).args
+        want_out = 'out' in inspect.getfullargspec(func).args
         
         @wraps(func)
         def with_caching(self, *args, **kwargs):
